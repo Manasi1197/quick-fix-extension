@@ -36,6 +36,9 @@ const Index = () => {
     }
   };
 
+  // Check if we're in a Chrome extension context
+  const isExtension = typeof chrome !== 'undefined' && chrome.storage !== undefined;
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -44,13 +47,14 @@ const Index = () => {
     );
   }
 
+  // Adjust layout based on context
   return (
-    <div className="min-h-screen flex flex-col max-w-5xl mx-auto px-4 py-6">
+    <div className={`flex flex-col mx-auto px-4 py-3 ${isExtension ? 'h-[500px] w-[400px]' : 'min-h-screen max-w-5xl py-6'}`}>
       <Header />
       
-      <div className="flex-1 flex gap-6 overflow-hidden">
+      <div className="flex-1 flex gap-4 overflow-hidden">
         {/* Notes sidebar */}
-        <div className="w-64 h-[calc(100vh-120px)]">
+        <div className={`${isExtension ? 'w-1/3' : 'w-64'} h-[calc(100%-60px)]`}>
           <NoteList
             notes={notes}
             activeNoteId={activeNoteId}
@@ -60,7 +64,7 @@ const Index = () => {
         </div>
         
         {/* Note editor */}
-        <div className="flex-1 h-[calc(100vh-120px)] border border-border rounded-lg p-4 bg-card">
+        <div className="flex-1 h-[calc(100%-60px)] border border-border rounded-lg p-3 bg-card">
           <NoteEditor
             note={activeNote}
             onUpdate={updateNote}
