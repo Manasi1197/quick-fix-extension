@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { componentTagger } from "lovable-tagger"
 import fs from 'fs-extra'
+import type { PluginOption } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -16,7 +17,7 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' && componentTagger(),
     {
       name: 'copy-extension-files',
-      apply: 'build',
+      apply: 'build' as const,
       closeBundle: async () => {
         // Copy manifest and icons to dist
         await fs.copy('public/manifest.json', 'dist/manifest.json');
@@ -35,8 +36,8 @@ export default defineConfig(({ mode }) => ({
         
         console.log('Extension files copied to dist folder');
       }
-    }
-  ].filter(Boolean),
+    } as PluginOption
+  ].filter(Boolean) as PluginOption[],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
