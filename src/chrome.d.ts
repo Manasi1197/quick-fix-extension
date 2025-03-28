@@ -7,6 +7,9 @@ interface Chrome {
       set: (items: object, callback?: () => void) => void;
     };
   };
+  extension?: {
+    getURL: (path: string) => string;
+  };
 }
 
 declare global {
