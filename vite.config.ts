@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => ({
         await fs.copy('public/popup.html', 'dist/popup.html');
         
         // Create popup.css with combined styles for the extension
+        // We'll manually include some of the important Tailwind base styles
         const cssContent = `
 /* Base extension styles */
 body {
@@ -41,9 +42,42 @@ body {
 #root {
   width: 100%;
   height: 100%;
+  padding: 0;
+  margin: 0;
 }
+
+/* Include extension styles here - copy from the built CSS */
+@import url('../src/index.css');
 `;
         await fs.writeFile('dist/popup.css', cssContent);
+        
+        // Copy the built CSS to ensure it's available to the extension
+        try {
+          // Find the CSS file in assets directory
+          const assetsDir = path.join(__dirname, 'dist/assets');
+          const files = await fs.readdir(assetsDir);
+          const cssFile = files.find(file => file.endsWith('.css'));
+          
+          if (cssFile) {
+            // Copy the built CSS file to the root for direct access
+            await fs.copy(
+              path.join(assetsDir, cssFile),
+              path.join(__dirname, 'dist/styles.css')
+            );
+            
+            // Append a link to this CSS in popup.html
+            let popupHtml = await fs.readFile('dist/popup.html', 'utf-8');
+            if (!popupHtml.includes('styles.css')) {
+              popupHtml = popupHtml.replace(
+                '</head>',
+                '  <link rel="stylesheet" href="styles.css" />\n</head>'
+              );
+              await fs.writeFile('dist/popup.html', popupHtml);
+            }
+          }
+        } catch (error) {
+          console.error('Error copying CSS files:', error);
+        }
         
         console.log('Extension files copied to dist folder');
       }

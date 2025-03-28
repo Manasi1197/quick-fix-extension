@@ -11,4 +11,19 @@ body {
 #root {
   width: 100%;
   height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Reset some styles that might interfere with extension UI */
+#root > div {
+  max-width: 100%;
+  padding: 0.5rem;
+  margin: 0;
+  text-align: left;
+}
+
+/* Ensure proper layout for the extension */
+.card {
+  padding: 1em;
 }
