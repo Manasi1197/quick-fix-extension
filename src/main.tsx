@@ -5,5 +5,5 @@ import './index.css'
 
 // Only render if not in extension context (for development/testing)
 if (!chrome.extension) {
-  createRoot(document.getElementById("root")!).render(<App />);
+  createRoot(document.getElementById("root")!).render(<App />)
 }
