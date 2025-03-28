@@ -26,13 +26,24 @@ export default defineConfig(({ mode }) => ({
         // Copy popup.html to dist
         await fs.copy('public/popup.html', 'dist/popup.html');
         
-        // Ensure popup.css exists in dist
-        if (await fs.pathExists('public/popup.css')) {
-          await fs.copy('public/popup.css', 'dist/popup.css');
-        } else {
-          // Create empty popup.css if it doesn't exist
-          await fs.writeFile('dist/popup.css', '/* Extension styles */');
-        }
+        // Create popup.css with combined styles for the extension
+        const cssContent = `
+/* Base extension styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 400px;
+  height: 500px;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+`;
+        await fs.writeFile('dist/popup.css', cssContent);
         
         console.log('Extension files copied to dist folder');
       }
@@ -55,5 +66,6 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
+    cssCodeSplit: false, // This ensures CSS is not split across chunks
   },
 }))
