@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Note } from '@/hooks/useNotes';
 import { Trash2, ImagePlus, X } from 'lucide-react';
@@ -197,38 +198,40 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <textarea
-          ref={textareaRef}
-          value={content}
-          onChange={handleContentChange}
-          onPaste={handlePaste}
-          placeholder="Start writing..."
-          className={`flex-1 w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'} overflow-y-auto`}
-          autoFocus={!title}
-        />
-        
-        {images.length > 0 && (
-          <div className={`mt-4 space-y-3 overflow-y-auto max-h-[30%]`}>
-            {images.map((image, index) => (
-              <div key={index} className="relative group">
-                <img 
-                  src={image} 
-                  alt={`Note image ${index + 1}`} 
-                  className="note-image rounded-lg max-w-full"
-                />
-                <Button
-                  variant="destructive"
-                  size="xs"
-                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
-                  onClick={() => removeImage(index)}
-                >
-                  <X size={12} />
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
+        <div className="flex-grow flex flex-col min-h-0 overflow-auto">
+          <textarea
+            ref={textareaRef}
+            value={content}
+            onChange={handleContentChange}
+            onPaste={handlePaste}
+            placeholder="Start writing..."
+            className={`flex-grow w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}
+            autoFocus={!title}
+          />
+          
+          {images.length > 0 && (
+            <div className="mt-4 space-y-3">
+              {images.map((image, index) => (
+                <div key={index} className="relative group">
+                  <img 
+                    src={image} 
+                    alt={`Note image ${index + 1}`} 
+                    className="note-image rounded-lg max-w-full"
+                  />
+                  <Button
+                    variant="destructive"
+                    size="xs"
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
+                    onClick={() => removeImage(index)}
+                  >
+                    <X size={12} />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
