@@ -6,6 +6,7 @@ import NoteEditor from '@/components/NoteEditor';
 import Header from '@/components/Header';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
 
 const Index = () => {
   const { notes, addNote, updateNote, deleteNote, isLoading } = useNotes();
@@ -41,6 +42,10 @@ const Index = () => {
 
   const handleDeleteNote = (id: string) => {
     deleteNote(id);
+    toast({
+      description: "Note deleted",
+      duration: 3000,
+    });
     
     // If we deleted the active note, set the first available note as active
     if (id === activeNoteId) {
@@ -73,6 +78,7 @@ const Index = () => {
             activeNoteId={activeNoteId}
             onNoteSelect={handleNoteSelect}
             onAddNote={handleAddNote}
+            onDeleteNote={handleDeleteNote}
             isExtension={isExtension}
           />
         ) : (
@@ -88,7 +94,7 @@ const Index = () => {
                 {isExtension ? "Back" : "Back to notes"}
               </Button>
             </div>
-            <div className={`flex-1 border border-border rounded-lg ${isExtension ? 'extension-editor p-2' : 'p-3'} bg-card`}>
+            <div className={`flex-1 border border-border rounded-lg ${isExtension ? 'extension-editor' : 'p-3'} bg-card`}>
               <NoteEditor
                 note={activeNote}
                 onUpdate={updateNote}

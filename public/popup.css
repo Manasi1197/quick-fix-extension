@@ -26,7 +26,7 @@ body {
 .extension-container {
   height: 500px;
   overflow: hidden;
-  padding: 0.5rem;
+  padding: 0.75rem;
 }
 
 /* More compact layout for extension */
@@ -36,7 +36,9 @@ body {
 
 /* More compact editor for extension */
 .extension-editor {
-  padding: 0.5rem !important;
+  padding: 0.75rem !important;
+  height: calc(100% - 40px) !important;
+  overflow: auto;
 }
 
 /* Make scrollbars thinner in extension */
@@ -57,6 +59,37 @@ body {
 .extension-button {
   padding: 0.25rem 0.5rem !important;
   font-size: 0.7rem !important;
+}
+
+/* Note list container in extension */
+.extension-note-list {
+  padding: 0 0.5rem;
+}
+
+/* Editor container that takes full height */
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editor-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-textarea {
+  flex: 1;
+  resize: none;
+  overflow-y: auto;
+}
+
+/* Image preview in notes */
+.note-image {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 4px 0;
 }
 
 /* Animations */
@@ -85,4 +118,17 @@ body {
 
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
+}
+
+/* Delete button on cards */
+.note-card-actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.note-card:hover .note-card-actions {
+  opacity: 1;
 }

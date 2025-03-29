@@ -7,6 +7,7 @@ export interface Note {
   content: string;
   createdAt: number;
   updatedAt: number;
+  images?: string[]; // Add support for storing images
 }
 
 // Helper function to check if Chrome extension API is available
@@ -68,6 +69,7 @@ export function useNotes() {
       content: '',
       createdAt: Date.now(),
       updatedAt: Date.now(),
+      images: [],
     };
     
     setNotes(prev => [newNote, ...prev]);
