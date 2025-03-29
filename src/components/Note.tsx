@@ -43,13 +43,29 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
     >
       <div className="p-3">
         <div className="pr-8 relative">
-          <div className="flex justify-between items-center">
-            <h3 className={cn(
-              'font-medium truncate max-w-[calc(100%-40px)]', 
-              isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
-            )}>
-              {displayTitle}
-            </h3>
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <h3 className={cn(
+                'font-medium truncate text-left', 
+                isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
+              )}>
+                {displayTitle}
+              </h3>
+              
+              <p className={cn(
+                'text-muted-foreground line-clamp-2 break-all text-left',
+                isExtension ? 'text-xs mb-1' : (isMobile ? 'text-xs mb-1' : 'text-sm mb-1')
+              )}>
+                {contentPreview || 'No content yet'}
+              </p>
+              
+              <p className={cn(
+                'text-muted-foreground text-left',
+                isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
+              )}>
+                {formattedDate}
+              </p>
+            </div>
             
             {/* Actions container - now positioning both icons in a single container */}
             <div className="absolute right-0 top-0 flex items-center space-x-3">
@@ -75,20 +91,6 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
               </Button>
             </div>
           </div>
-          
-          <p className={cn(
-            'text-muted-foreground line-clamp-2 break-all',
-            isExtension ? 'text-xs mb-1' : (isMobile ? 'text-xs mb-1' : 'text-sm mb-1')
-          )}>
-            {contentPreview || 'No content yet'}
-          </p>
-          
-          <p className={cn(
-            'text-muted-foreground',
-            isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
-          )}>
-            {formattedDate}
-          </p>
         </div>
       </div>
     </div>
