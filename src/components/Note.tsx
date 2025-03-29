@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Note as NoteType } from '@/hooks/useNotes';
 import { cn } from '@/lib/utils';
