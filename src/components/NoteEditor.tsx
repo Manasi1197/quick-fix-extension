@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Note } from '@/hooks/useNotes';
 import { Trash2, ImagePlus, X } from 'lucide-react';
@@ -20,7 +19,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
-  // Update local state when active note changes
   useEffect(() => {
     if (note) {
       setTitle(note.title);
@@ -34,18 +32,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   }, [note]);
 
   useEffect(() => {
-    // Auto-focus the title input when a new note is created
     if (note && !note.title && titleRef.current) {
       titleRef.current.focus();
     }
   }, [note]);
 
-  // Auto-resize the textarea based on content
   useEffect(() => {
     if (textareaRef.current) {
-      // Reset height to auto to correctly calculate the new height
       textareaRef.current.style.height = 'auto';
-      // Set the height to match the scroll height
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [content]);
@@ -106,7 +100,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
     };
     reader.readAsDataURL(file);
     
-    // Reset file input
     e.target.value = '';
   }, [note, images, onUpdate]);
 
@@ -136,7 +129,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
         };
         
         reader.readAsDataURL(blob);
-        // Prevent the image from being inserted as text
         e.preventDefault();
         break;
       }
@@ -166,7 +158,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   }
 
   return (
-    <div className="h-full flex flex-col p-4 animate-fade-in">
+    <div className="h-full flex flex-col p-6 animate-fade-in">
       <div className="flex justify-between items-center mb-4">
         <input
           ref={titleRef}

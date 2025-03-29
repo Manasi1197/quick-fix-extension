@@ -94,7 +94,7 @@ const Index = () => {
                 {isExtension ? "Back" : "Back to notes"}
               </Button>
             </div>
-            <div className="flex-1 bg-card rounded-lg animate-fade-in">
+            <div className="flex-1 bg-card rounded-lg h-full overflow-hidden">
               <NoteEditor
                 note={activeNote}
                 onUpdate={updateNote}

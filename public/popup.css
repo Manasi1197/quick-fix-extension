@@ -38,7 +38,6 @@ body {
 .extension-editor {
   height: 100% !important;
   overflow: hidden;
-  padding: 0.75rem !important;
 }
 
 /* Make scrollbars thinner in extension */
@@ -71,7 +70,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0.75rem;
 }
 
 .editor-content {
