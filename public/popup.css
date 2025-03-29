@@ -35,16 +35,53 @@ body {
 
 /* More compact layout for extension */
 .extension-layout {
-  gap: 0.5rem !important;
-  padding: 0.5rem !important;
+  gap: 0.25rem !important;
+  padding: 0.25rem !important;
 }
 
 /* Narrower sidebar for extension */
 .extension-sidebar {
-  width: 120px !important;
+  width: 110px !important;
+  min-width: 110px !important;
 }
 
 /* More compact editor for extension */
 .extension-editor {
+  padding: 0.25rem !important;
+}
+
+/* Optimize header space for extension */
+.extension-header {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Make scrollbars thinner in extension */
+.extension-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Optimize spacing for popup */
+.extension-note {
+  padding: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Make note items more compact */
+.extension-note-title {
+  margin-bottom: 0 !important;
+  font-size: 0.75rem !important;
+}
+
+.extension-note-date {
+  font-size: 0.65rem !important;
+}
+
+/* Optimize button sizes */
+.extension-button {
+  padding: 0.15rem 0.5rem !important;
+  font-size: 0.7rem !important;
+}
+
+.extension-empty-state {
   padding: 0.5rem !important;
 }

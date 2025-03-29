@@ -61,7 +61,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
 
   if (!note) {
     return (
-      <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
+      <div className={`h-full flex items-center justify-center text-muted-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}>
         <p>{isExtension ? "Select a note" : "Select a note or create a new one"}</p>
       </div>
     );
@@ -69,22 +69,22 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
 
   return (
     <div className="h-full flex flex-col animate-fade-in">
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center mb-1">
         <input
           ref={titleRef}
           type="text"
           value={title}
           onChange={handleTitleChange}
           placeholder="Untitled Note"
-          className={`font-medium ${isExtension ? 'text-base' : 'text-lg'} bg-transparent border-none outline-none w-full focus:ring-0 p-0`}
+          className={`font-medium ${isExtension ? 'text-sm' : 'text-lg'} bg-transparent border-none outline-none w-full focus:ring-0 p-0`}
         />
         <Button 
           variant="ghost" 
           size={isExtension ? "xs" : "sm"} 
           onClick={handleDelete}
-          className="text-muted-foreground hover:text-destructive"
+          className={`text-muted-foreground hover:text-destructive ${isExtension ? 'p-1' : ''}`}
         >
-          <Trash2 size={isExtension ? 14 : 16} />
+          <Trash2 size={isExtension ? 12 : 16} />
         </Button>
       </div>
       
@@ -92,7 +92,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
         value={content}
         onChange={handleContentChange}
         placeholder="Start writing..."
-        className="flex-1 w-full h-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground text-sm"
+        className={`flex-1 w-full h-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}
       />
     </div>
   );

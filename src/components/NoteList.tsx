@@ -27,20 +27,20 @@ const NoteList: React.FC<NoteListProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex justify-between items-center mb-2">
-        <h2 className={`font-medium ${isExtension ? 'text-base' : 'text-lg'}`}>Notes</h2>
+      <div className="flex justify-between items-center mb-1">
+        <h2 className={`font-medium ${isExtension ? 'text-xs' : 'text-lg'}`}>Notes</h2>
         <Button 
           variant="ghost" 
           size={isExtension ? "xs" : "sm"} 
           onClick={onAddNote}
-          className="text-muted-foreground hover:text-foreground flex items-center gap-1"
+          className={`text-muted-foreground hover:text-foreground flex items-center gap-1 ${isExtension ? 'extension-button p-1' : ''}`}
         >
-          <PlusCircle size={isExtension ? 14 : 16} />
+          <PlusCircle size={isExtension ? 12 : 16} />
           {!isExtension && <span>New</span>}
         </Button>
       </div>
       
-      <div className="overflow-y-auto flex-1 pr-2 -mr-2">
+      <div className={`overflow-y-auto flex-1 ${isExtension ? 'pr-1 -mr-1 extension-scrollbar' : 'pr-2 -mr-2'}`}>
         {notes.map(note => (
           <Note
             key={note.id}

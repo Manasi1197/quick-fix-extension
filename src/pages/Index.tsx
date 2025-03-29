@@ -52,11 +52,11 @@ const Index = () => {
   // Adjust layout based on context
   return (
     <div className={`flex flex-col mx-auto ${isExtension ? 'extension-container' : 'min-h-screen max-w-5xl py-6'}`}>
-      <Header />
+      <Header isExtension={isExtension} />
       
       <div className={`flex-1 flex gap-4 overflow-hidden ${isExtension ? 'extension-layout' : ''}`}>
         {/* Notes sidebar */}
-        <div className={`${isExtension ? 'extension-sidebar' : 'w-64'} h-[calc(100%-60px)] overflow-hidden`}>
+        <div className={`${isExtension ? 'extension-sidebar' : 'w-64'} h-[calc(100%-40px)] overflow-hidden ${isExtension ? 'extension-scrollbar' : ''}`}>
           <NoteList
             notes={notes}
             activeNoteId={activeNoteId}
@@ -67,7 +67,7 @@ const Index = () => {
         </div>
         
         {/* Note editor */}
-        <div className={`flex-1 h-[calc(100%-60px)] border border-border rounded-lg ${isExtension ? 'extension-editor' : 'p-3'} bg-card overflow-hidden`}>
+        <div className={`flex-1 h-[calc(100%-40px)] border border-border rounded-lg ${isExtension ? 'extension-editor' : 'p-3'} bg-card overflow-hidden`}>
           <NoteEditor
             note={activeNote}
             onUpdate={updateNote}
