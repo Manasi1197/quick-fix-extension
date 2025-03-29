@@ -138,6 +138,8 @@ body {
     padding-right: 0.75rem !important;
     padding-left: 0.75rem !important;
     position: relative;
+    max-width: 100%; /* Ensure card doesn't overflow */
+    box-sizing: border-box; /* Include padding in width calculation */
   }
   
   .note-card .delete-button {
