@@ -17,24 +17,19 @@ interface NoteProps {
 const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtension = false }) => {
   const isMobile = useIsMobile();
   
-  // Format the created at date
   const formattedDate = formatDistanceToNow(new Date(note.createdAt), { 
     addSuffix: true,
     includeSeconds: true
   });
   
-  // Get a truncated version of the content for preview
   const contentPreview = note.content.length > 60 
     ? `${note.content.substring(0, 60)}...` 
     : note.content;
     
-  // Use a default title if none exists
   const displayTitle = note.title || 'Untitled Note';
 
-  // Check if note has images
   const hasImages = note.images && note.images.length > 0;
   
-  // Determine icon sizes based on context
   const iconSize = isExtension || isMobile ? 14 : 16;
   
   return (
@@ -49,7 +44,7 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
         <div className="pr-8 relative">
           <div className="flex justify-between items-center">
             <h3 className={cn(
-              'font-medium truncate max-w-[calc(100%-40px)]', // Adjusted to make room for image/delete icons
+              'font-medium truncate max-w-[calc(100%-40px)]', 
               isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
             )}>
               {displayTitle}
