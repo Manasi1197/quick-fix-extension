@@ -52,7 +52,7 @@ const NoteList: React.FC<NoteListProps> = ({
       </div>
       
       <ScrollArea className="h-[calc(100%-40px)]">
-        <div className={`px-1 ${isExtension || isMobile ? 'pr-1' : 'pr-1'}`}>
+        <div className="px-1">
           {notes.map(note => (
             <Note
               key={note.id}

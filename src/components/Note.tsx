@@ -44,8 +44,8 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
       )}
       onClick={onClick}
     >
-      <div className="flex justify-between items-center">
-        <div className="flex-grow pr-6">
+      <div className="flex justify-between items-start">
+        <div className="flex-grow pr-8">
           <h3 className={cn(
             'font-medium truncate',
             isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
@@ -83,11 +83,12 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
         <Button
           variant="ghost"
           size="xs"
-          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-0 right-1 mt-2"
+          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-2 right-2"
           onClick={(e) => onDelete(e, note.id)}
           title="Delete note"
+          aria-label="Delete note"
         >
-          <Trash2 size={isMobile || isExtension ? 10 : 12} />
+          <Trash2 size={isMobile || isExtension ? 14 : 16} />
         </Button>
       </div>
     </div>
