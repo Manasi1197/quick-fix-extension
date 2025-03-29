@@ -11,30 +11,32 @@ interface NoteListProps {
   activeNoteId: string | null;
   onNoteSelect: (id: string) => void;
   onAddNote: () => void;
+  isExtension?: boolean;
 }
 
 const NoteList: React.FC<NoteListProps> = ({ 
   notes, 
   activeNoteId, 
   onNoteSelect,
-  onAddNote
+  onAddNote,
+  isExtension = false
 }) => {
   if (notes.length === 0) {
-    return <EmptyState onAddNote={onAddNote} />;
+    return <EmptyState onAddNote={onAddNote} isExtension={isExtension} />;
   }
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-medium">Notes</h2>
+      <div className="flex justify-between items-center mb-2">
+        <h2 className={`font-medium ${isExtension ? 'text-base' : 'text-lg'}`}>Notes</h2>
         <Button 
           variant="ghost" 
-          size="sm" 
+          size={isExtension ? "xs" : "sm"} 
           onClick={onAddNote}
           className="text-muted-foreground hover:text-foreground flex items-center gap-1"
         >
-          <PlusCircle size={16} />
-          <span>New</span>
+          <PlusCircle size={isExtension ? 14 : 16} />
+          {!isExtension && <span>New</span>}
         </Button>
       </div>
       
@@ -45,6 +47,7 @@ const NoteList: React.FC<NoteListProps> = ({
             note={note}
             isActive={note.id === activeNoteId}
             onClick={() => onNoteSelect(note.id)}
+            isExtension={isExtension}
           />
         ))}
       </div>

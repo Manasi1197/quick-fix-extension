@@ -9,9 +9,10 @@ interface NoteEditorProps {
   note: Note | null;
   onUpdate: (id: string, updates: Partial<Omit<Note, 'id' | 'createdAt'>>) => void;
   onDelete: (id: string) => void;
+  isExtension?: boolean;
 }
 
-const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete }) => {
+const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExtension = false }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const titleRef = useRef<HTMLInputElement>(null);
@@ -60,30 +61,30 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete }) => 
 
   if (!note) {
     return (
-      <div className="h-full flex items-center justify-center text-muted-foreground">
-        <p>Select a note or create a new one</p>
+      <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
+        <p>{isExtension ? "Select a note" : "Select a note or create a new one"}</p>
       </div>
     );
   }
 
   return (
     <div className="h-full flex flex-col animate-fade-in">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-2">
         <input
           ref={titleRef}
           type="text"
           value={title}
           onChange={handleTitleChange}
           placeholder="Untitled Note"
-          className="font-medium text-lg bg-transparent border-none outline-none w-full focus:ring-0 p-0"
+          className={`font-medium ${isExtension ? 'text-base' : 'text-lg'} bg-transparent border-none outline-none w-full focus:ring-0 p-0`}
         />
         <Button 
           variant="ghost" 
-          size="sm" 
+          size={isExtension ? "xs" : "sm"} 
           onClick={handleDelete}
           className="text-muted-foreground hover:text-destructive"
         >
-          <Trash2 size={16} />
+          <Trash2 size={isExtension ? 14 : 16} />
         </Button>
       </div>
       
@@ -91,7 +92,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete }) => 
         value={content}
         onChange={handleContentChange}
         placeholder="Start writing..."
-        className="flex-1 w-full h-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground"
+        className="flex-1 w-full h-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground text-sm"
       />
     </div>
   );

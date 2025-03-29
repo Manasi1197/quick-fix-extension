@@ -15,15 +15,36 @@ body {
   margin: 0;
 }
 
-/* Reset some styles that might interfere with extension UI */
+/* Extension-specific overrides */
 #root > div {
   max-width: 100%;
-  padding: 0.5rem;
+  padding: 0;
   margin: 0;
-  text-align: left;
 }
 
-/* Ensure proper layout for the extension */
+/* Remove excessive padding for extension */
 .card {
-  padding: 1em;
+  padding: 0.5rem;
+}
+
+/* Ensure content fits within the extension window */
+.extension-container {
+  height: 500px;
+  overflow: hidden;
+}
+
+/* More compact layout for extension */
+.extension-layout {
+  gap: 0.5rem !important;
+  padding: 0.5rem !important;
+}
+
+/* Narrower sidebar for extension */
+.extension-sidebar {
+  width: 120px !important;
+}
+
+/* More compact editor for extension */
+.extension-editor {
+  padding: 0.5rem !important;
 }

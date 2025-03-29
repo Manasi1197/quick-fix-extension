@@ -4,10 +4,12 @@ import { useNotes, Note } from '@/hooks/useNotes';
 import NoteList from '@/components/NoteList';
 import NoteEditor from '@/components/NoteEditor';
 import Header from '@/components/Header';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
   const { notes, addNote, updateNote, deleteNote, isLoading } = useNotes();
   const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
+  const isMobile = useIsMobile();
   
   // Get the active note object
   const activeNote = activeNoteId 
@@ -49,26 +51,28 @@ const Index = () => {
 
   // Adjust layout based on context
   return (
-    <div className={`flex flex-col mx-auto px-4 py-3 ${isExtension ? 'h-[500px] w-[400px]' : 'min-h-screen max-w-5xl py-6'}`}>
+    <div className={`flex flex-col mx-auto ${isExtension ? 'extension-container' : 'min-h-screen max-w-5xl py-6'}`}>
       <Header />
       
-      <div className="flex-1 flex gap-4 overflow-hidden">
+      <div className={`flex-1 flex gap-4 overflow-hidden ${isExtension ? 'extension-layout' : ''}`}>
         {/* Notes sidebar */}
-        <div className={`${isExtension ? 'w-1/3' : 'w-64'} h-[calc(100%-60px)]`}>
+        <div className={`${isExtension ? 'extension-sidebar' : 'w-64'} h-[calc(100%-60px)] overflow-hidden`}>
           <NoteList
             notes={notes}
             activeNoteId={activeNoteId}
             onNoteSelect={setActiveNoteId}
             onAddNote={handleAddNote}
+            isExtension={isExtension}
           />
         </div>
         
         {/* Note editor */}
-        <div className="flex-1 h-[calc(100%-60px)] border border-border rounded-lg p-3 bg-card">
+        <div className={`flex-1 h-[calc(100%-60px)] border border-border rounded-lg ${isExtension ? 'extension-editor' : 'p-3'} bg-card overflow-hidden`}>
           <NoteEditor
             note={activeNote}
             onUpdate={updateNote}
             onDelete={handleDeleteNote}
+            isExtension={isExtension}
           />
         </div>
       </div>

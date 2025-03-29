@@ -1,45 +1,50 @@
 
 import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import { cn } from '@/lib/utils';
 import { Note as NoteType } from '@/hooks/useNotes';
+import { cn } from '@/lib/utils';
+import { formatDistanceToNow } from 'date-fns';
 
 interface NoteProps {
   note: NoteType;
   isActive: boolean;
   onClick: () => void;
+  isExtension?: boolean;
 }
 
-const Note: React.FC<NoteProps> = ({ note, isActive, onClick }) => {
-  const formattedDate = formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true });
+const Note: React.FC<NoteProps> = ({ note, isActive, onClick, isExtension = false }) => {
+  // Format the created at date
+  const formattedDate = formatDistanceToNow(new Date(note.createdAt), { 
+    addSuffix: true,
+    includeSeconds: true
+  });
   
-  // Extract the first line as title, or use default if empty
+  // Get a truncated version of the content for preview
+  const contentPreview = note.content.length > 60 
+    ? `${note.content.substring(0, 60)}...` 
+    : note.content;
+    
+  // Use a default title if none exists
   const displayTitle = note.title || 'Untitled Note';
   
-  // Extract the first few words of content for preview
-  const contentPreview = note.content 
-    ? note.content.slice(0, 120) + (note.content.length > 120 ? '...' : '')
-    : 'No content';
-
   return (
     <div 
       className={cn(
-        "p-4 rounded-lg transition-all duration-200 cursor-pointer overflow-hidden mb-3",
-        "border border-border hover:border-primary/20",
-        "animate-fade-in group",
-        isActive 
-          ? "bg-accent border-primary/30 shadow-sm" 
-          : "hover:bg-accent/50"
+        'rounded-md border border-border p-2 mb-2 cursor-pointer transition-colors',
+        isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30',
       )}
       onClick={onClick}
     >
-      <h3 className="font-medium text-foreground/90 mb-1 truncate group-hover:text-foreground">
+      <h3 className={`font-medium ${isExtension ? 'text-sm' : 'text-base'} mb-1 truncate`}>
         {displayTitle}
       </h3>
-      <p className="text-sm text-muted-foreground truncate mb-2">
-        {contentPreview}
-      </p>
-      <p className="text-xs text-muted-foreground opacity-80">
+      
+      {!isExtension && (
+        <p className="text-sm text-muted-foreground line-clamp-2 mb-1">
+          {contentPreview || 'No content yet'}
+        </p>
+      )}
+      
+      <p className={`${isExtension ? 'text-xs' : 'text-sm'} text-muted-foreground`}>
         {formattedDate}
       </p>
     </div>
