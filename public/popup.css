@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   padding: 0;
@@ -132,4 +131,72 @@ body {
 
 .note-card:hover .note-card-actions {
   opacity: 1;
+}
+
+/* More responsive design for smaller screens */
+@media (max-width: 480px) {
+  .note-card {
+    padding: 0.5rem !important;
+  }
+  
+  .extension-button, 
+  .mobile-button {
+    padding: 0.25rem !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .mobile-text {
+    font-size: 0.8rem !important;
+  }
+  
+  .mobile-title {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Delete button positioning */
+.note-card .delete-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+/* Note image responsiveness */
+.note-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .note-image {
+    max-height: 150px;
+  }
+}
+
+/* Make sure small screens have appropriate spacing */
+@media (max-width: 768px) {
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  h3, h2, h1 {
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Ensure the delete button is properly positioned on all screen sizes */
+.note-card {
+  position: relative;
+}
+
+/* Ensure container sizing is responsive */
+.h-full {
+  height: 100% !important;
+}
+
+/* Ensure scrolling works properly on mobile */
+.overflow-auto {
+  -webkit-overflow-scrolling: touch;
 }

@@ -6,6 +6,7 @@ import { PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import EmptyState from './EmptyState';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NoteListProps {
   notes: NoteType[];
@@ -24,6 +25,8 @@ const NoteList: React.FC<NoteListProps> = ({
   onDeleteNote,
   isExtension = false
 }) => {
+  const isMobile = useIsMobile();
+  
   if (notes.length === 0) {
     return <EmptyState onAddNote={onAddNote} isExtension={isExtension} />;
   }
@@ -36,20 +39,20 @@ const NoteList: React.FC<NoteListProps> = ({
   return (
     <div className="h-full flex flex-col">
       <div className="flex justify-between items-center mb-3 px-1">
-        <h2 className={`font-medium ${isExtension ? 'text-sm' : 'text-lg'}`}>Notes</h2>
+        <h2 className={`font-medium ${isExtension ? 'text-sm' : (isMobile ? 'text-base' : 'text-lg')}`}>Notes</h2>
         <Button 
           variant="ghost" 
-          size={isExtension ? "xs" : "sm"} 
+          size={isExtension || isMobile ? "xs" : "sm"} 
           onClick={onAddNote}
-          className={`text-muted-foreground hover:text-foreground flex items-center gap-1 ${isExtension ? 'extension-button p-1' : ''}`}
+          className={`text-muted-foreground hover:text-foreground flex items-center gap-1 ${isExtension || isMobile ? 'p-1' : ''}`}
         >
-          <PlusCircle size={isExtension ? 12 : 16} />
+          <PlusCircle size={isExtension || isMobile ? 12 : 16} />
           <span>New Note</span>
         </Button>
       </div>
       
       <ScrollArea className="h-[calc(100%-40px)]">
-        <div className={`${isExtension ? 'extension-note-list px-1' : 'px-1 pr-2'}`}>
+        <div className={`px-1 ${isExtension || isMobile ? 'pr-1' : 'pr-1'}`}>
           {notes.map(note => (
             <Note
               key={note.id}

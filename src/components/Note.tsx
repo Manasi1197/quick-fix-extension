@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { Trash2, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NoteProps {
   note: NoteType;
@@ -15,6 +16,8 @@ interface NoteProps {
 }
 
 const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtension = false }) => {
+  const isMobile = useIsMobile();
+  
   // Format the created at date
   const formattedDate = formatDistanceToNow(new Date(note.createdAt), { 
     addSuffix: true,
@@ -37,22 +40,22 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
       className={cn(
         'rounded-md border border-border mb-2 cursor-pointer transition-colors relative note-card',
         isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30',
-        isExtension ? 'p-2 mb-1 pr-6' : 'p-3 pr-6'
+        isExtension ? 'p-2 mb-1' : (isMobile ? 'p-2' : 'p-3')
       )}
       onClick={onClick}
     >
       <div className="flex justify-between items-center">
-        <div className="flex-grow">
+        <div className="flex-grow pr-6">
           <h3 className={cn(
-            'font-medium truncate pr-2',
-            isExtension ? 'text-xs' : 'text-base mb-1'
+            'font-medium truncate',
+            isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
           )}>
             {displayTitle}
           </h3>
           
           <p className={cn(
             'text-muted-foreground line-clamp-2',
-            isExtension ? 'text-xs mb-1' : 'text-sm mb-1'
+            isExtension ? 'text-xs mb-1' : (isMobile ? 'text-xs mb-1' : 'text-sm mb-1')
           )}>
             {contentPreview || 'No content yet'}
           </p>
@@ -60,7 +63,7 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
           <div className="flex justify-between items-center">
             <p className={cn(
               'text-muted-foreground',
-              isExtension ? 'text-xs' : 'text-sm'
+              isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
             )}>
               {formattedDate}
             </p>
@@ -68,9 +71,9 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
             {hasImages && (
               <div className={cn(
                 'text-muted-foreground flex items-center',
-                isExtension ? 'text-xs' : 'text-sm'
+                isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
               )}>
-                <Image size={isExtension ? 10 : 14} className="mr-1" />
+                <Image size={isMobile || isExtension ? 10 : 14} className="mr-1" />
                 <span>{note.images.length}</span>
               </div>
             )}
@@ -80,11 +83,11 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
         <Button
           variant="ghost"
           size="xs"
-          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-1/2 right-1 -translate-y-1/2"
+          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-0 right-1 mt-2"
           onClick={(e) => onDelete(e, note.id)}
           title="Delete note"
         >
-          <Trash2 size={12} />
+          <Trash2 size={isMobile || isExtension ? 10 : 12} />
         </Button>
       </div>
     </div>
