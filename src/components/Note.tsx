@@ -29,27 +29,28 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, isExtension = fals
   return (
     <div 
       className={cn(
-        'rounded-md border border-border mb-2 cursor-pointer transition-colors extension-note',
+        'rounded-md border border-border mb-2 cursor-pointer transition-colors',
         isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30',
-        isExtension ? 'p-1 mb-1' : 'p-2'
+        isExtension ? 'p-2 mb-1' : 'p-2'
       )}
       onClick={onClick}
     >
       <h3 className={cn(
-        'font-medium truncate extension-note-title',
+        'font-medium truncate',
         isExtension ? 'text-xs' : 'text-base mb-1'
       )}>
         {displayTitle}
       </h3>
       
-      {!isExtension && (
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-1">
-          {contentPreview || 'No content yet'}
-        </p>
-      )}
+      <p className={cn(
+        'text-muted-foreground line-clamp-2',
+        isExtension ? 'text-xs mb-1' : 'text-sm mb-1'
+      )}>
+        {contentPreview || 'No content yet'}
+      </p>
       
       <p className={cn(
-        'text-muted-foreground extension-note-date',
+        'text-muted-foreground',
         isExtension ? 'text-xs' : 'text-sm'
       )}>
         {formattedDate}

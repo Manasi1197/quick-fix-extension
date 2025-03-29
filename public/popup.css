@@ -22,66 +22,67 @@ body {
   margin: 0;
 }
 
-/* Remove excessive padding for extension */
-.card {
-  padding: 0.5rem;
-}
-
 /* Ensure content fits within the extension window */
 .extension-container {
   height: 500px;
   overflow: hidden;
+  padding: 0.5rem;
 }
 
 /* More compact layout for extension */
 .extension-layout {
   gap: 0.25rem !important;
-  padding: 0.25rem !important;
-}
-
-/* Narrower sidebar for extension */
-.extension-sidebar {
-  width: 110px !important;
-  min-width: 110px !important;
 }
 
 /* More compact editor for extension */
 .extension-editor {
-  padding: 0.25rem !important;
-}
-
-/* Optimize header space for extension */
-.extension-header {
-  margin-bottom: 0.5rem !important;
+  padding: 0.5rem !important;
 }
 
 /* Make scrollbars thinner in extension */
-.extension-scrollbar::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
 }
 
-/* Optimize spacing for popup */
-.extension-note {
-  padding: 0.5rem !important;
-  margin-bottom: 0.25rem !important;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* Make note items more compact */
-.extension-note-title {
-  margin-bottom: 0 !important;
-  font-size: 0.75rem !important;
-}
-
-.extension-note-date {
-  font-size: 0.65rem !important;
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
 /* Optimize button sizes */
 .extension-button {
-  padding: 0.15rem 0.5rem !important;
+  padding: 0.25rem 0.5rem !important;
   font-size: 0.7rem !important;
 }
 
-.extension-empty-state {
-  padding: 0.5rem !important;
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-in-out;
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+@keyframes slide-in {
+  from { transform: translateY(-5px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
 }

@@ -62,14 +62,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   if (!note) {
     return (
       <div className={`h-full flex items-center justify-center text-muted-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}>
-        <p>{isExtension ? "Select a note" : "Select a note or create a new one"}</p>
+        <p>Select a note or create a new one</p>
       </div>
     );
   }
 
   return (
     <div className="h-full flex flex-col animate-fade-in">
-      <div className="flex justify-between items-center mb-1">
+      <div className="flex justify-between items-center mb-2">
         <input
           ref={titleRef}
           type="text"
@@ -93,6 +93,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
         onChange={handleContentChange}
         placeholder="Start writing..."
         className={`flex-1 w-full h-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}
+        autoFocus={!title}
       />
     </div>
   );
