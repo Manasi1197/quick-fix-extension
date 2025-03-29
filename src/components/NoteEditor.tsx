@@ -166,17 +166,17 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   }
 
   return (
-    <div className="h-full flex flex-col animate-fade-in">
-      <div className="flex justify-between items-center mb-3">
+    <div className="h-full flex flex-col p-4 animate-fade-in">
+      <div className="flex justify-between items-center mb-4">
         <input
           ref={titleRef}
           type="text"
           value={title}
           onChange={handleTitleChange}
           placeholder="Untitled Note"
-          className={`font-medium ${isExtension ? 'text-sm' : 'text-lg'} bg-transparent border-none outline-none w-full focus:ring-0 p-0`}
+          className={`font-medium bg-transparent border-none outline-none w-full ${isExtension ? 'text-sm' : 'text-lg'}`}
         />
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button 
             variant="ghost" 
             size={isExtension ? "xs" : "sm"} 
@@ -212,23 +212,23 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
           onChange={handleContentChange}
           onPaste={handlePaste}
           placeholder="Start writing..."
-          className={`flex-1 w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'} overflow-y-auto min-h-[100px]`}
+          className={`flex-1 w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'} overflow-y-auto`}
           autoFocus={!title}
         />
         
         {images.length > 0 && (
-          <div className={`mt-3 ${isExtension ? 'space-y-2' : 'space-y-3'}`}>
+          <div className={`mt-4 space-y-3 overflow-y-auto max-h-[30%]`}>
             {images.map((image, index) => (
               <div key={index} className="relative group">
                 <img 
                   src={image} 
                   alt={`Note image ${index + 1}`} 
-                  className="note-image"
+                  className="note-image rounded-lg max-w-full"
                 />
                 <Button
                   variant="destructive"
                   size="xs"
-                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity h-5 w-5 p-0"
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
                   onClick={() => removeImage(index)}
                 >
                   <X size={12} />
