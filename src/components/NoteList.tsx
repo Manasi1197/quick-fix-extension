@@ -35,7 +35,7 @@ const NoteList: React.FC<NoteListProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-3 px-1">
         <h2 className={`font-medium ${isExtension ? 'text-sm' : 'text-lg'}`}>Notes</h2>
         <Button 
           variant="ghost" 
@@ -49,7 +49,7 @@ const NoteList: React.FC<NoteListProps> = ({
       </div>
       
       <ScrollArea className="h-[calc(100%-40px)]">
-        <div className={`${isExtension ? 'extension-note-list pr-1' : 'pr-2'}`}>
+        <div className={`${isExtension ? 'extension-note-list px-1' : 'px-1 pr-2'}`}>
           {notes.map(note => (
             <Note
               key={note.id}

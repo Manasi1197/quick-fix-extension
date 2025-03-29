@@ -17,6 +17,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   const [content, setContent] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const titleRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Update local state when active note changes
@@ -38,6 +39,16 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
       titleRef.current.focus();
     }
   }, [note]);
+
+  // Auto-resize the textarea based on content
+  useEffect(() => {
+    if (textareaRef.current) {
+      // Reset height to auto to correctly calculate the new height
+      textareaRef.current.style.height = 'auto';
+      // Set the height to match the scroll height
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [content]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -155,7 +166,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
   }
 
   return (
-    <div className="h-full flex flex-col animate-fade-in editor-container">
+    <div className="h-full flex flex-col animate-fade-in">
       <div className="flex justify-between items-center mb-3">
         <input
           ref={titleRef}
@@ -194,13 +205,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onUpdate, onDelete, isExt
         </div>
       </div>
 
-      <div className="editor-content">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <textarea
+          ref={textareaRef}
           value={content}
           onChange={handleContentChange}
           onPaste={handlePaste}
           placeholder="Start writing..."
-          className={`editor-textarea w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'}`}
+          className={`flex-1 w-full resize-none bg-transparent border-none outline-none focus:ring-0 p-0 text-foreground ${isExtension ? 'text-xs' : 'text-sm'} overflow-y-auto min-h-[100px]`}
           autoFocus={!title}
         />
         
