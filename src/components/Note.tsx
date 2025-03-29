@@ -44,10 +44,10 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
       onClick={onClick}
     >
       <div className="p-3">
-        <div className="pr-6">
+        <div className="pr-8">
           <div className="flex justify-between items-center">
             <h3 className={cn(
-              'font-medium truncate',
+              'font-medium truncate max-w-[85%]',
               isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
             )}>
               {displayTitle}
@@ -65,7 +65,7 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
           </div>
           
           <p className={cn(
-            'text-muted-foreground line-clamp-2 break-words',
+            'text-muted-foreground line-clamp-2 break-all',
             isExtension ? 'text-xs mb-1' : (isMobile ? 'text-xs mb-1' : 'text-sm mb-1')
           )}>
             {contentPreview || 'No content yet'}

@@ -127,17 +127,13 @@ body {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
-/* Note card content */
+/* Note text wrapping */
 .note-card p {
   word-break: break-word;
+  word-wrap: break-word;
   overflow-wrap: break-word;
-  width: 100%;
-  max-width: 100%;
-  white-space: normal;
 }
 
 /* Mobile-specific adjustments */
@@ -146,14 +142,6 @@ body {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-  }
-  
-  .note-card .delete-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    opacity: 1;
-    visibility: visible;
   }
   
   .extension-button, 
@@ -194,11 +182,6 @@ body {
   h3, h2, h1 {
     margin-bottom: 0.5rem !important;
   }
-}
-
-/* Ensure the delete button is properly positioned on all screen sizes */
-.note-card {
-  position: relative;
 }
 
 /* Ensure container sizing is responsive */
