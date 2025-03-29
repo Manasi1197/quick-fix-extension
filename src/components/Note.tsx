@@ -35,6 +35,9 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
   // Check if note has images
   const hasImages = note.images && note.images.length > 0;
   
+  // Determine icon sizes based on context
+  const iconSize = isExtension || isMobile ? 14 : 16;
+  
   return (
     <div 
       className={cn(
@@ -44,24 +47,26 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
       onClick={onClick}
     >
       <div className="p-3">
-        <div className="pr-8">
+        <div className="pr-8 relative">
           <div className="flex justify-between items-center">
             <h3 className={cn(
-              'font-medium truncate max-w-[85%]',
+              'font-medium truncate max-w-[calc(100%-40px)]', // Adjusted to make room for image/delete icons
               isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
             )}>
               {displayTitle}
             </h3>
             
-            {hasImages && (
-              <div className={cn(
-                'text-muted-foreground flex items-center',
-                isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
-              )}>
-                <Image size={isMobile || isExtension ? 10 : 14} className="mr-1" />
-                <span>{note.images.length}</span>
-              </div>
-            )}
+            <div className="flex items-center space-x-2 absolute right-0 top-0">
+              {hasImages && (
+                <div className={cn(
+                  'text-muted-foreground flex items-center',
+                  isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
+                )}>
+                  <Image size={iconSize} className="mr-1" />
+                  <span>{note.images.length}</span>
+                </div>
+              )}
+            </div>
           </div>
           
           <p className={cn(
@@ -88,7 +93,7 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
         title="Delete note"
         aria-label="Delete note"
       >
-        <Trash2 size={isMobile || isExtension ? 14 : 16} />
+        <Trash2 size={iconSize} />
       </Button>
     </div>
   );
