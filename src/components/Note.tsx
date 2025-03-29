@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Note as NoteType } from '@/hooks/useNotes';
 import { cn } from '@/lib/utils';
@@ -50,7 +51,8 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
               {displayTitle}
             </h3>
             
-            <div className="flex items-center space-x-2 absolute right-0 top-0">
+            {/* Actions container - now positioning both icons in a single container */}
+            <div className="absolute right-0 top-0 flex items-center space-x-3">
               {hasImages && (
                 <div className={cn(
                   'text-muted-foreground flex items-center',
@@ -60,6 +62,17 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
                   <span>{note.images.length}</span>
                 </div>
               )}
+              
+              <Button
+                variant="ghost"
+                size="xs"
+                className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                onClick={(e) => onDelete(e, note.id)}
+                title="Delete note"
+                aria-label="Delete note"
+              >
+                <Trash2 size={iconSize} />
+              </Button>
             </div>
           </div>
           
@@ -78,17 +91,6 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
           </p>
         </div>
       </div>
-      
-      <Button
-        variant="ghost"
-        size="xs"
-        className="absolute top-2 right-2 h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
-        onClick={(e) => onDelete(e, note.id)}
-        title="Delete note"
-        aria-label="Delete note"
-      >
-        <Trash2 size={iconSize} />
-      </Button>
     </div>
   );
 };
