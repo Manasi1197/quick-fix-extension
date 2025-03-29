@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -120,7 +121,21 @@ body {
   animation: slide-in 0.3s ease-out;
 }
 
-/* Delete button on cards - ensure visibility on all screen sizes */
+/* Note card styling - fixed padding and overflow issues */
+.note-card {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Ensure consistent spacing in note card content */
+.note-card > div {
+  padding: 0.75rem;
+}
+
+/* Delete button always visible */
 .note-card-actions {
   position: absolute;
   top: 0.5rem;
@@ -132,14 +147,12 @@ body {
   opacity: 1;
 }
 
-/* More responsive design for smaller screens */
+/* Mobile-specific adjustments */
 @media (max-width: 480px) {
   .note-card {
-    padding-right: 0.75rem !important;
-    padding-left: 0.75rem !important;
-    position: relative;
-    max-width: 100%; /* Ensure card doesn't overflow */
-    box-sizing: border-box; /* Include padding in width calculation */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .note-card .delete-button {
@@ -220,10 +233,4 @@ body {
 /* Ensure scrolling works properly on mobile */
 .overflow-auto {
   -webkit-overflow-scrolling: touch;
-}
-
-/* Fix padding consistency in note cards */
-.note-card {
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
 }

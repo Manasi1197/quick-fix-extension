@@ -39,12 +39,11 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
     <div 
       className={cn(
         'rounded-md border border-border mb-2 cursor-pointer transition-colors relative note-card',
-        isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30',
-        isExtension ? 'p-2 mb-1' : (isMobile ? 'p-2' : 'p-3')
+        isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30'
       )}
       onClick={onClick}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-start p-3">
         <div className="flex-grow pr-8">
           <div className="flex justify-between items-center">
             <h3 className={cn(
