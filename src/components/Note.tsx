@@ -46,12 +46,37 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
     >
       <div className="flex justify-between items-start">
         <div className="flex-grow pr-8">
-          <h3 className={cn(
-            'font-medium truncate',
-            isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
-          )}>
-            {displayTitle}
-          </h3>
+          <div className="flex justify-between items-center">
+            <h3 className={cn(
+              'font-medium truncate flex-grow',
+              isExtension ? 'text-xs' : (isMobile ? 'text-sm' : 'text-base mb-1')
+            )}>
+              {displayTitle}
+            </h3>
+            
+            <div className="flex items-center space-x-2">
+              {hasImages && (
+                <div className={cn(
+                  'text-muted-foreground flex items-center',
+                  isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
+                )}>
+                  <Image size={isMobile || isExtension ? 10 : 14} className="mr-1" />
+                  <span>{note.images.length}</span>
+                </div>
+              )}
+              
+              <Button
+                variant="ghost"
+                size="xs"
+                className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                onClick={(e) => onDelete(e, note.id)}
+                title="Delete note"
+                aria-label="Delete note"
+              >
+                <Trash2 size={isMobile || isExtension ? 14 : 16} />
+              </Button>
+            </div>
+          </div>
           
           <p className={cn(
             'text-muted-foreground line-clamp-2',
@@ -60,36 +85,13 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
             {contentPreview || 'No content yet'}
           </p>
           
-          <div className="flex justify-between items-center">
-            <p className={cn(
-              'text-muted-foreground',
-              isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
-            )}>
-              {formattedDate}
-            </p>
-            
-            {hasImages && (
-              <div className={cn(
-                'text-muted-foreground flex items-center',
-                isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
-              )}>
-                <Image size={isMobile || isExtension ? 10 : 14} className="mr-1" />
-                <span>{note.images.length}</span>
-              </div>
-            )}
-          </div>
+          <p className={cn(
+            'text-muted-foreground',
+            isExtension ? 'text-xs' : (isMobile ? 'text-xs' : 'text-sm')
+          )}>
+            {formattedDate}
+          </p>
         </div>
-        
-        <Button
-          variant="ghost"
-          size="xs"
-          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-2 right-2"
-          onClick={(e) => onDelete(e, note.id)}
-          title="Delete note"
-          aria-label="Delete note"
-        >
-          <Trash2 size={isMobile || isExtension ? 14 : 16} />
-        </Button>
       </div>
     </div>
   );
