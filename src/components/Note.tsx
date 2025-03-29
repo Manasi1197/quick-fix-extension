@@ -37,53 +37,55 @@ const Note: React.FC<NoteProps> = ({ note, isActive, onClick, onDelete, isExtens
       className={cn(
         'rounded-md border border-border mb-2 cursor-pointer transition-colors relative note-card',
         isActive ? 'border-primary bg-primary/5' : 'hover:bg-primary/5 hover:border-primary/30',
-        isExtension ? 'p-2 mb-1' : 'p-3'
+        isExtension ? 'p-2 mb-1 pr-6' : 'p-3 pr-6'
       )}
       onClick={onClick}
     >
-      <div className="note-card-actions">
+      <div className="flex justify-between items-center">
+        <div className="flex-grow">
+          <h3 className={cn(
+            'font-medium truncate pr-2',
+            isExtension ? 'text-xs' : 'text-base mb-1'
+          )}>
+            {displayTitle}
+          </h3>
+          
+          <p className={cn(
+            'text-muted-foreground line-clamp-2',
+            isExtension ? 'text-xs mb-1' : 'text-sm mb-1'
+          )}>
+            {contentPreview || 'No content yet'}
+          </p>
+          
+          <div className="flex justify-between items-center">
+            <p className={cn(
+              'text-muted-foreground',
+              isExtension ? 'text-xs' : 'text-sm'
+            )}>
+              {formattedDate}
+            </p>
+            
+            {hasImages && (
+              <div className={cn(
+                'text-muted-foreground flex items-center',
+                isExtension ? 'text-xs' : 'text-sm'
+              )}>
+                <Image size={isExtension ? 10 : 14} className="mr-1" />
+                <span>{note.images.length}</span>
+              </div>
+            )}
+          </div>
+        </div>
+        
         <Button
           variant="ghost"
           size="xs"
-          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive absolute top-1/2 right-1 -translate-y-1/2"
           onClick={(e) => onDelete(e, note.id)}
           title="Delete note"
         >
           <Trash2 size={12} />
         </Button>
-      </div>
-      
-      <h3 className={cn(
-        'font-medium truncate pr-6',
-        isExtension ? 'text-xs' : 'text-base mb-1'
-      )}>
-        {displayTitle}
-      </h3>
-      
-      <p className={cn(
-        'text-muted-foreground line-clamp-2',
-        isExtension ? 'text-xs mb-1' : 'text-sm mb-1'
-      )}>
-        {contentPreview || 'No content yet'}
-      </p>
-      
-      <div className="flex justify-between items-center">
-        <p className={cn(
-          'text-muted-foreground',
-          isExtension ? 'text-xs' : 'text-sm'
-        )}>
-          {formattedDate}
-        </p>
-        
-        {hasImages && (
-          <div className={cn(
-            'text-muted-foreground flex items-center',
-            isExtension ? 'text-xs' : 'text-sm'
-          )}>
-            <Image size={isExtension ? 10 : 14} className="mr-1" />
-            <span>{note.images.length}</span>
-          </div>
-        )}
       </div>
     </div>
   );
